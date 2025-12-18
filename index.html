@@ -22,17 +22,6 @@
       background: black;
     }
 
-    button {
-      padding: 12px 18px;
-      font-size: 15px;
-      margin: 4px;
-    }
-
-    #status {
-      margin: 10px 0;
-      font-size: 14px;
-    }
-
     img {
       max-width: 100%;
       margin-top: 10px;
@@ -40,12 +29,46 @@
       display: none;
     }
 
+    button {
+      padding: 12px 18px;
+      font-size: 15px;
+      margin: 6px 4px;
+    }
+
     textarea {
       width: 100%;
       max-width: 420px;
       height: 160px;
       font-family: monospace;
-      margin-top: 10px;
+      margin-top: 8px;
+    }
+
+    .block {
+      margin-top: 16px;
+      padding: 12px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+
+    .status {
+      padding: 12px;
+      border-radius: 8px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    .status.neutral { background: #eee; }
+    .status.ok { background: #d4f7d4; color: #0a7a0a; }
+    .status.err { background: #ffd6d6; color: #a00000; }
+
+    .substatus {
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .data-view div {
+      margin: 4px 0;
     }
 
     .fixed {
@@ -67,14 +90,42 @@
 
 <h2>📷 Offline QR Verifier</h2>
 
+<!-- STATUS -->
+<div id="statusBox" class="status neutral">
+  📷 Scanning QR codes…
+</div>
+
 <video id="video" playsinline muted></video>
 
-<p id="status">Ready</p>
+<!-- PHOTO -->
+<div class="block">
+  <h3>📷 Photo</h3>
+  <div id="photoStatus" class="substatus">Waiting for photo…</div>
+  <img id="photo">
+</div>
 
-<img id="photo">
+<!-- DATA -->
+<div class="block">
+  <h3>🧾 Data</h3>
 
-<h3>📄 Data XML</h3>
-<textarea id="dataXml" readonly></textarea>
+  <div id="dataView" class="data-view" hidden>
+    <div><b>Surname:</b> <span id="vSurname"></span></div>
+    <div><b>Given names:</b> <span id="vGivenNames"></span></div>
+    <div><b>Date of birth:</b> <span id="vDob"></span></div>
+    <div><b>Sex:</b> <span id="vSex"></span></div>
+    <div><b>Nationality:</b> <span id="vNationality"></span></div>
+    <div><b>Document type:</b> <span id="vDocType"></span></div>
+  </div>
+
+  <button id="toggleXml">Show raw XML</button>
+  <textarea id="dataXml" readonly hidden></textarea>
+</div>
+
+<!-- VERIFICATION -->
+<div class="block">
+  <h3>🔐 Verification results</h3>
+  <ul id="verifyList"></ul>
+</div>
 
 <div class="fixed">
   <button id="btnStart">Start</button>
